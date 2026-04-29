@@ -19,11 +19,7 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
+    public String getCode() { return code; }
+    public HttpStatus getStatus() { return status; }
+    public String getMessage() { return message; }
 }

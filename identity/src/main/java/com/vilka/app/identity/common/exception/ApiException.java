@@ -3,6 +3,7 @@ package com.vilka.app.identity.common.exception;
 import org.springframework.http.HttpStatus;
 
 public class ApiException extends RuntimeException {
+
     private final ErrorCode errorCode;
 
     public ApiException(ErrorCode errorCode) {
@@ -14,7 +15,7 @@ public class ApiException extends RuntimeException {
         return errorCode.getStatus();
     }
 
-    public ErrorCode getCode() {
-        return errorCode;
+    public String getCode() {
+        return errorCode.getCode();
     }
 }

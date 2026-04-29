@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
     USER_NOT_FOUND("USER_NOT_FOUND", HttpStatus.NOT_FOUND, "User not found"),
-    EMAIL_ALREADY_EXIST("EMAIL_ALREADY_EXIST", HttpStatus.CONFLICT, "Email already exist"),
+    EMAIL_ALREADY_EXIST("EMAIL_ALREADY_EXIST", HttpStatus.CONFLICT, "Email already exists"),
     VALIDATION_ERROR("VALIDATION_ERROR", HttpStatus.BAD_REQUEST, "Validation failed"),
     INTERNAL_ERROR("INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
 
@@ -19,11 +19,7 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
+    public String getCode() { return code; }
+    public HttpStatus getStatus() { return status; }
+    public String getMessage() { return message; }
 }

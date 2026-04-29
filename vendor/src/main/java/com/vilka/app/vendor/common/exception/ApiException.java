@@ -14,7 +14,7 @@ public class ApiException extends RuntimeException {
         return errorCode.getStatus();
     }
 
-    public ErrorCode getCode() {
-        return errorCode;
+    public String getCode() {
+        return errorCode.getCode();
     }
 }
