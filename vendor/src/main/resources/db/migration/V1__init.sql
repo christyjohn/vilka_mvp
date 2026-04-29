@@ -1,0 +1,10 @@
+CREATE TABLE vendors (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    owner_user_id BIGINT NOT NULL,
+    business_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT uk_vendor_name_per_user UNIQUE (owner_user_id, business_name)
+);
