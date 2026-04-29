@@ -1,8 +1,6 @@
 package com.vilka.app.vendor.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,11 +16,9 @@ public class Vendor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(name = "owner_user_id", nullable = false)
     private Long userId;
 
-    @NotBlank
     @Column(name = "business_name", nullable = false)
     private String businessName;
 

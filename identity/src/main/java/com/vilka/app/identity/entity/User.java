@@ -2,7 +2,6 @@ package com.vilka.app.identity.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,16 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(name="username", nullable = false, unique = true)
     private String username;
 
-    @NotBlank
     @Email
     @Column(name="email", nullable = false, unique = true)
     private String email;
 
-    @NotBlank
     @Column(name="password", nullable = false)
     private String password;
 
