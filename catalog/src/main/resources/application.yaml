@@ -1,3 +1,20 @@
 spring:
   application:
     name: catalog
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:mysql://localhost:3306/vilka_catalog
+    username: vilka_mvp
+    password: vilka_mvp
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+logging:
+  level:
+    root: ERROR
+    org.springframework: OFF
+    org.hibernate: OFF
+    com.vilka.app.catalog: INFO
+    org.flywaydb: DEBUG
