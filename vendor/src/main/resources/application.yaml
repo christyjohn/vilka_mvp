@@ -1,3 +1,5 @@
+server:
+  port: 9000
 spring:
   application:
     name: vendor
@@ -18,3 +20,7 @@ logging:
     org.hibernate: OFF
     com.vilka.app.vendor: INFO
     org.flywaydb: DEBUG
+
+services:
+  identity:
+    url: http://localhost:8080
