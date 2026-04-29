@@ -1,3 +1,5 @@
+server:
+  port: 8070
 spring:
   application:
     name: subscription
@@ -11,10 +13,16 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
-logging:
-  level:
-    root: ERROR
-    org.springframework: OFF
-    org.hibernate: OFF
-    com.vilka.app.subscription: INFO
-    org.flywaydb: DEBUG
+#logging:
+#  level:
+#    root: ERROR
+#    org.springframework: OFF
+#    org.hibernate: OFF
+#    com.vilka.app.subscription: INFO
+#    org.flywaydb: DEBUG
+
+services:
+  identity:
+    url: http://localhost:8080
+  catalog:
+    url: http://localhost:9000
