@@ -36,6 +36,18 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+                        // ✅ Swagger
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs.yaml"
+                        ).permitAll()
+                        // ✅ Actuator (public health check)
+                        .requestMatchers(
+                                "/actuator/health",
+                                "/actuator/info"
+                        ).permitAll()
+                        // ✅ Auth endpoints
                         .requestMatchers("/api/v1/auth/**").permitAll()
 
                         // tighten later (for now ok during dev)

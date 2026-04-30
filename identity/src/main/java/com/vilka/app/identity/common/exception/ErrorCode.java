@@ -12,7 +12,8 @@ public enum ErrorCode {
     INVALID_AUTHENTICATION_PRINCIPAL("INVALID_AUTHENTICATION_PRINCIPAL", HttpStatus.UNAUTHORIZED, "Invalid authentication principal"),
     UNAUTHENTICATED_USER("UNAUTHENTICATED", HttpStatus.UNAUTHORIZED, "User not authenticated."),
     VALIDATION_ERROR("VALIDATION_ERROR", HttpStatus.BAD_REQUEST, "Validation failed"),
-    INTERNAL_ERROR("INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
+    INTERNAL_ERROR("INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong"),
+    NOT_IMPLEMENTED("NOT_IMPLEMENTED", HttpStatus.NOT_IMPLEMENTED, "Not implemented yet");
 
     private final String code;
     private final HttpStatus status;

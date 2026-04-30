@@ -2,6 +2,8 @@ package com.vilka.app.identity.auth.controller;
 
 import com.vilka.app.identity.auth.dto.*;
 import com.vilka.app.identity.auth.service.AuthService;
+import com.vilka.app.identity.common.exception.ApiException;
+import com.vilka.app.identity.common.exception.ErrorCode;
 import com.vilka.app.identity.user.dto.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +28,17 @@ public class AuthController {
 
     @PostMapping("/logout")
     public void logout() {
-        authService.logout();
+        throw new ApiException(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @PostMapping("/forgot-password")
     public void forgotPassword(@RequestBody ForgotPasswordRequest request) {
-        authService.forgotPassword(request);
+        throw new ApiException(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @PostMapping("/reset-password")
     public void resetPassword(@RequestBody ResetPasswordRequest request) {
-        authService.resetPassword(request);
+        throw new ApiException(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @GetMapping("/me")
