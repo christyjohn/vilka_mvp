@@ -1,14 +1,15 @@
 package com.vilka.app.identity.user.controller;
 
-import com.vilka.app.identity.user.dto.CreateUserRequest;
 import com.vilka.app.identity.user.dto.UserExistsResponse;
 import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.service.UserService;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -17,11 +18,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Register user
+    // Register user -- moved to Auth module
+    /*
     @PostMapping
     public UserResponse create(@Valid @RequestBody CreateUserRequest request) {
         return userService.createUser(request);
     }
+    *?
+     */
 
     // Get user
     @GetMapping("/{id}")

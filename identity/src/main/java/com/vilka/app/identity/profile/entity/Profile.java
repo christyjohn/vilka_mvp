@@ -16,7 +16,7 @@ public class Profile extends BaseEntity {
 
     @Id
     @Column(name = "user_id")
-    private Long user_id;
+    private Long userId;
 
     @MapsId // KEY: shares PK with User
     @OneToOne
