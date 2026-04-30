@@ -1,19 +1,11 @@
 package com.vilka.app.identity.user.mapper;
 
-import com.vilka.app.identity.user.dto.CreateUserRequest;
 import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public static User toEntity(CreateUserRequest request) {
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-        user.setUsername(request.getUsername());
-        return user;
-    }
 
     public static UserResponse toResponse(User user) {
         UserResponse res = new UserResponse();

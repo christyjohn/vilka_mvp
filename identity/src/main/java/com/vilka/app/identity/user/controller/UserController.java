@@ -18,15 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Register user -- moved to Auth module
-    /*
-    @PostMapping
-    public UserResponse create(@Valid @RequestBody CreateUserRequest request) {
-        return userService.createUser(request);
-    }
-    *?
-     */
-
     // Get user
     @GetMapping("/{id}")
     public UserResponse get(@PathVariable Long id) {

@@ -3,7 +3,6 @@ package com.vilka.app.identity.user.service;
 import com.vilka.app.identity.auth.security.utils.SecurityUtils;
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
-import com.vilka.app.identity.user.dto.CreateUserRequest;
 import com.vilka.app.identity.user.dto.UserExistsResponse;
 import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.entity.User;
@@ -13,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -28,26 +26,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
-    }
-
-    @Transactional
-    public UserResponse createUser(CreateUserRequest request) {
-
-        log.info("Creating user with email={}", request.getEmail());
-
-        if (userRepository.existsByEmail(request.getEmail())) {
-            log.warn("User creation failed: email already exists: {}", request.getEmail());
-            throw new ApiException(ErrorCode.EMAIL_ALREADY_EXIST);
-        }
-
-        User user = UserMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        User saved = userRepository.save(user);
-
-        log.info("User created successfully with id={}", saved.getId());
-
-        return UserMapper.toResponse(saved);
     }
 
     public UserExistsResponse checkUserExists(Long userId) {
