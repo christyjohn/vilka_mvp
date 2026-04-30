@@ -1,5 +1,6 @@
 package com.vilka.app.identity.user.service;
 
+import com.vilka.app.identity.auth.security.utils.SecurityUtils;
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
 import com.vilka.app.identity.user.dto.CreateUserRequest;
@@ -19,12 +20,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     public UserService(UserRepository userRepository,
-                       PasswordEncoder passwordEncoder) {
+                       PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     @Transactional
@@ -64,5 +67,14 @@ public class UserService {
                 });
 
         return UserMapper.toResponse(user);
+    }
+
+    public UserResponse getCurrentUser() {
+        Long userId = SecurityUtils.getCurrentUserId();
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return userMapper.toResponse(user);
     }
 }

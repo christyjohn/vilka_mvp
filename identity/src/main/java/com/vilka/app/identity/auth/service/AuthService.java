@@ -1,8 +1,13 @@
 package com.vilka.app.identity.auth.service;
 
 import com.vilka.app.identity.auth.dto.*;
+import com.vilka.app.identity.auth.security.jwt.JwtUtil;
+import com.vilka.app.identity.auth.security.utils.SecurityUtils;
+import com.vilka.app.identity.common.exception.ApiException;
+import com.vilka.app.identity.common.exception.ErrorCode;
 import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.entity.User;
+import com.vilka.app.identity.user.mapper.UserMapper;
 import com.vilka.app.identity.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,38 +19,50 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @Transactional
     public AuthResponse register(RegisterRequest request) {
 
+        if (userRepository.existsByUsername(request.getUsername())) {
+            throw new ApiException(ErrorCode.USERNAME_ALREADY_EXIST);
+        }
+
         User user = new User();
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        user = userRepository.save(user);
+        userRepository.save(user);
+
+        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
 
         return AuthResponse.builder()
+                .accessToken(token)
                 .userId(user.getId())
-                .email(user.getEmail())
-                .accessToken("dummy-jwt")
-                .refreshToken("dummy-refresh")
+                .username(user.getUsername())
                 .build();
     }
 
     public AuthResponse login(LoginRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> {
+                    return new ApiException(ErrorCode.INVALID_CREDENTIALS);
+                });
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid credentials");
+            throw new ApiException(ErrorCode.INVALID_CREDENTIALS);
         }
 
+        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
+
         return AuthResponse.builder()
+                .accessToken(token)
                 .userId(user.getId())
-                .email(user.getEmail())
-                .accessToken("dummy-jwt")
-                .refreshToken("dummy-refresh")
+                .username(user.getUsername())
                 .build();
     }
 
@@ -56,7 +73,12 @@ public class AuthService {
     public void resetPassword(ResetPasswordRequest request) {}
 
     public UserResponse getCurrentUser() {
-        // TODO: extract from security context
-        return null;
+
+        Long userId = SecurityUtils.getCurrentUserId();
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
+
+        return userMapper.toResponse(user);
     }
 }
