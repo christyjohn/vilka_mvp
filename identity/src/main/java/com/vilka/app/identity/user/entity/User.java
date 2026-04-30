@@ -1,17 +1,20 @@
-package com.vilka.app.identity.entity;
+package com.vilka.app.identity.user.entity;
 
+import com.vilka.app.identity.address.entity.Address;
+import com.vilka.app.identity.common.base.entity.BaseEntity;
+import com.vilka.app.identity.profile.entity.Profile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +33,10 @@ public class User {
     @Column(name="enabled", nullable = false)
     private boolean enabled = true;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @OneToMany(mappedBy = "user")
+    private List<Address> addresses;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-    }
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
+
 }

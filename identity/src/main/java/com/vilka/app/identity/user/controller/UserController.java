@@ -1,9 +1,9 @@
-package com.vilka.app.identity.controller;
+package com.vilka.app.identity.user.controller;
 
-import com.vilka.app.identity.dto.CreateUserRequest;
-import com.vilka.app.identity.dto.UserExistsResponse;
-import com.vilka.app.identity.dto.UserResponse;
-import com.vilka.app.identity.service.UserService;
+import com.vilka.app.identity.user.dto.CreateUserRequest;
+import com.vilka.app.identity.user.dto.UserExistsResponse;
+import com.vilka.app.identity.user.dto.UserResponse;
+import com.vilka.app.identity.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

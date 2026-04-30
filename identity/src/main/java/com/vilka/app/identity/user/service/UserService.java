@@ -1,13 +1,13 @@
-package com.vilka.app.identity.service;
+package com.vilka.app.identity.user.service;
 
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
-import com.vilka.app.identity.dto.CreateUserRequest;
-import com.vilka.app.identity.dto.UserExistsResponse;
-import com.vilka.app.identity.dto.UserResponse;
-import com.vilka.app.identity.entity.User;
-import com.vilka.app.identity.mapper.UserMapper;
-import com.vilka.app.identity.repository.UserRepository;
+import com.vilka.app.identity.user.dto.CreateUserRequest;
+import com.vilka.app.identity.user.dto.UserExistsResponse;
+import com.vilka.app.identity.user.dto.UserResponse;
+import com.vilka.app.identity.user.entity.User;
+import com.vilka.app.identity.user.mapper.UserMapper;
+import com.vilka.app.identity.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;

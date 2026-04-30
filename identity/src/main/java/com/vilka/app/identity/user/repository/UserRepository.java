@@ -1,6 +1,6 @@
-package com.vilka.app.identity.repository;
+package com.vilka.app.identity.user.repository;
 
-import com.vilka.app.identity.entity.User;
+import com.vilka.app.identity.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.vilka.app.identity.dto;
+package com.vilka.app.identity.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;

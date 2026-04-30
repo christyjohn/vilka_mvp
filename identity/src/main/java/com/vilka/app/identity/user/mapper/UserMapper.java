@@ -1,8 +1,8 @@
-package com.vilka.app.identity.mapper;
+package com.vilka.app.identity.user.mapper;
 
-import com.vilka.app.identity.dto.CreateUserRequest;
-import com.vilka.app.identity.dto.UserResponse;
-import com.vilka.app.identity.entity.User;
+import com.vilka.app.identity.user.dto.CreateUserRequest;
+import com.vilka.app.identity.user.dto.UserResponse;
+import com.vilka.app.identity.user.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
