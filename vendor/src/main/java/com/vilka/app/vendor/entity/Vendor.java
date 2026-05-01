@@ -1,8 +1,7 @@
 package com.vilka.app.vendor.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +9,9 @@ import java.time.LocalDateTime;
 @Table(name = "vendors")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Vendor {
 
     @Id
@@ -25,8 +27,9 @@ public class Vendor {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean active = true;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private VendorStatus status;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

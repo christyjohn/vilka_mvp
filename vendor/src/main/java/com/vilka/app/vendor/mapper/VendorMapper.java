@@ -1,15 +1,15 @@
 package com.vilka.app.vendor.mapper;
 
-import com.vilka.app.vendor.dto.CreateVendorRequest;
+import com.vilka.app.vendor.dto.VendorApplyRequest;
 import com.vilka.app.vendor.dto.VendorResponse;
 import com.vilka.app.vendor.entity.Vendor;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VendorMapper {
-    public static Vendor toEntity(CreateVendorRequest req) {
+    public static Vendor toEntity(VendorApplyRequest req) {
         Vendor v = new Vendor();
-        v.setUserId(req.getUserId());
+        //v.setUserId(req.getUserId()); // removed - TODO - more fields to add later
         v.setBusinessName(req.getBusinessName());
         return v;
     }
@@ -19,7 +19,7 @@ public class VendorMapper {
         res.setId(v.getId());
         res.setUserId(v.getUserId());
         res.setBusinessName(v.getBusinessName());
-        res.setActive(v.isActive());
+        res.setStatus(v.getStatus());
         res.setCreatedAt(v.getCreatedAt());
         return res;
     }

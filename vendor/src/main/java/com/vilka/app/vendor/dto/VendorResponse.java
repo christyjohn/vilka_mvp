@@ -1,5 +1,6 @@
 package com.vilka.app.vendor.dto;
 
+import com.vilka.app.vendor.entity.VendorStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,6 @@ public class VendorResponse {
     private Long userId;
     private String businessName;
     private String description;
-    private boolean active;
+    private VendorStatus status;
     private LocalDateTime createdAt;
 }

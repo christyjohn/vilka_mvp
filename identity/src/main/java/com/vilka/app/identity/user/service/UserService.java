@@ -4,6 +4,7 @@ import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
 import com.vilka.app.identity.user.dto.UserExistsResponse;
 import com.vilka.app.identity.user.dto.UserResponse;
+import com.vilka.app.identity.user.entity.Role;
 import com.vilka.app.identity.user.entity.User;
 import com.vilka.app.identity.user.mapper.UserMapper;
 import com.vilka.app.identity.user.repository.UserRepository;
@@ -44,5 +45,18 @@ public class UserService {
                 });
 
         return UserMapper.toResponse(user);
+    }
+
+    public void updateRole(Long userId, Role role) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> {
+            log.warn("User not found with id={}", userId);
+            return new ApiException(ErrorCode.USER_NOT_FOUND);
+        });
+
+        user.setRole(role);
+
+        userRepository.save(user);
     }
 }
