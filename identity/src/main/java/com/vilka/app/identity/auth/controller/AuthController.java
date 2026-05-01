@@ -4,10 +4,12 @@ import com.vilka.app.identity.auth.dto.*;
 import com.vilka.app.identity.auth.service.AuthService;
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
-import com.vilka.app.identity.user.dto.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -22,8 +24,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthResponse login(@Valid @RequestBody LoginRequest request) {
-        return authService.login(request);
+    public TokenResponse login(@Valid @RequestBody LoginRequest request) {
+        String token = authService.login(request);
+        return new TokenResponse(token);
     }
 
     @PostMapping("/logout")
@@ -39,10 +42,5 @@ public class AuthController {
     @PostMapping("/reset-password")
     public void resetPassword(@RequestBody ResetPasswordRequest request) {
         throw new ApiException(ErrorCode.NOT_IMPLEMENTED);
-    }
-
-    @GetMapping("/me")
-    public UserResponse me() {
-        return authService.getCurrentUser();
     }
 }

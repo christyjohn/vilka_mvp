@@ -2,10 +2,8 @@ package com.vilka.app.identity.auth.service;
 
 import com.vilka.app.identity.auth.dto.*;
 import com.vilka.app.identity.auth.security.jwt.JwtUtil;
-import com.vilka.app.identity.auth.security.utils.SecurityUtils;
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
-import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.entity.User;
 import com.vilka.app.identity.user.mapper.UserMapper;
 import com.vilka.app.identity.user.repository.UserRepository;
@@ -13,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +37,15 @@ public class AuthService {
 
         userRepository.save(user);
 
-        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
+
+        List<String> roles = List.of("USER");
+        List<String> permissions = List.of("CREATE_SERVICE");
+
+        String token = jwtUtil.generateToken(
+                user.getId(),
+                user.getUsername(),
+                roles,
+                permissions);
 
         return AuthResponse.builder()
                 .accessToken(token)
@@ -46,7 +54,7 @@ public class AuthService {
                 .build();
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public String login(LoginRequest request) {
 
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> {
@@ -57,13 +65,16 @@ public class AuthService {
             throw new ApiException(ErrorCode.INVALID_CREDENTIALS);
         }
 
-        String token = jwtUtil.generateToken(user.getId(), user.getUsername());
+        List<String> roles = List.of("USER");
+        List<String> permissions = List.of("CREATE_SERVICE");
 
-        return AuthResponse.builder()
-                .accessToken(token)
-                .userId(user.getId())
-                .username(user.getUsername())
-                .build();
+        String token = jwtUtil.generateToken(
+                user.getId(),
+                user.getUsername(),
+                roles,
+                permissions);
+
+        return token;
     }
 
     public void logout() {}
@@ -72,13 +83,4 @@ public class AuthService {
 
     public void resetPassword(ResetPasswordRequest request) {}
 
-    public UserResponse getCurrentUser() {
-
-        Long userId = SecurityUtils.getCurrentUserId();
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
-
-        return userMapper.toResponse(user);
-    }
 }

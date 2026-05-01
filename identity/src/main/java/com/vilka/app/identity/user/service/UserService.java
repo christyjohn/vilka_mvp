@@ -1,6 +1,5 @@
 package com.vilka.app.identity.user.service;
 
-import com.vilka.app.identity.auth.security.utils.SecurityUtils;
 import com.vilka.app.identity.common.exception.ApiException;
 import com.vilka.app.identity.common.exception.ErrorCode;
 import com.vilka.app.identity.user.dto.UserExistsResponse;
@@ -45,14 +44,5 @@ public class UserService {
                 });
 
         return UserMapper.toResponse(user);
-    }
-
-    public UserResponse getCurrentUser() {
-        Long userId = SecurityUtils.getCurrentUserId();
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        return userMapper.toResponse(user);
     }
 }
