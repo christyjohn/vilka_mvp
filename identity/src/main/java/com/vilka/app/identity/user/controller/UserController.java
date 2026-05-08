@@ -25,11 +25,15 @@ public class UserController {
     }*/
 
     // Get user
+    // TODO - Currently giving 403, have to later check if this is needed at all and work accordingly
     @GetMapping("/{id}")
     public UserResponse getUser(@PathVariable Long id, Authentication authentication) {
         System.out.println("🔥 CONTROLLER AUTH: " + authentication);
         System.out.println("Auth class ==>" + authentication.getClass());
         System.out.println("Auth principal ==>" + authentication.getPrincipal());
+        System.out.println("🔥 AUTH AUTHORITIES: " + authentication.getAuthorities());
+        System.out.println("🔥 AUTH CREDENTIALS: " + authentication.getCredentials());
+        System.out.println("🔥 AUTH DETAILS: " + authentication.getDetails());
         if (!authentication.isAuthenticated()) {
             throw new AccessDeniedException("Forbidden");
         }

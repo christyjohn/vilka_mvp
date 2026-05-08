@@ -31,6 +31,8 @@ public class VendorService {
         this.jwtProperties = jwtProperties;
     }
 
+    // TODO - only used for debugging, once done, can delete the JwTProperties class
+    //  and this code
     @PostConstruct
     public void debugSecret() {
         System.out.println("🔥 JWT SECRET = " + jwtProperties.getSecret());

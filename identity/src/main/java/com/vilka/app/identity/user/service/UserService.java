@@ -34,6 +34,7 @@ public class UserService {
         return new UserExistsResponse(exists);
     }
 
+    // TODO - Currently giving 403, have to later check if this is needed at all and work accordingly
     public UserResponse getUser(Long id) {
         log.debug("Fetching user with id={}", id);
 

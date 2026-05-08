@@ -33,49 +33,21 @@ public class VendorController {
     public void apply(Authentication auth,
                       @RequestBody VendorApplyRequest request) {
         log.info("🔥 Vendor APPLY HIT");
-        Long userId = Long.valueOf((String) auth.getPrincipal());
+        Long userId = (Long) auth.getPrincipal();
         System.out.println("🔥 userId -> " + userId);
         vendorService.apply(userId, request.getBusinessName(), request.getDescription());
-        /*
-        public void apply(@AuthenticationPrincipal Long userId,
-                          @RequestBody VendorApplyRequest request) {
-
-            log.info("🔥 Vendor APPLY HIT");
-
-            System.out.println("🔥 userId -> " + userId);
-
-            vendorService.apply(
-                    userId,
-                    request.getBusinessName(),
-                    request.getDescription()
-            );
-        }
-     */
     }
-    /*
-    public void apply(@AuthenticationPrincipal Long userId,
-                      @RequestBody VendorApplyRequest request) {
-
-        log.info("🔥 Vendor APPLY HIT");
-
-        System.out.println("🔥 userId -> " + userId);
-
-        vendorService.apply(
-                userId,
-                request.getBusinessName(),
-                request.getDescription()
-        );
-    }
-     */
 
     // Admin approves
     @PostMapping("/{userId}/approve")
+    @PreAuthorize("hasRole('ADMIN')")
     public void approve(@PathVariable Long userId) {
         vendorService.approve(userId);
     }
 
     // Admin rejects
     @PostMapping("/{userId}/reject")
+    @PreAuthorize("hasRole('ADMIN')")
     public void reject(@PathVariable Long userId) {
         vendorService.reject(userId);
     }

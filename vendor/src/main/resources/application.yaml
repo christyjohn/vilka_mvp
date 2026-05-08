@@ -12,11 +12,12 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          secret-key: ${JWT_SECRET}
+  jwt:
+    secret: ${JWT_SECRET}
+    #oauth2:
+      #resourceserver:
+        #jwt:
+          #secret-key: ${JWT_SECRET}
 
 services:
   identity:

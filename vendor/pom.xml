@@ -109,7 +109,12 @@
 			<version>0.12.5</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- JWT Token end-->
+		<!-- JWT Token end--><!-- Vilka Common security-->
+		<dependency>
+			<groupId>com.vilka.security</groupId>
+			<artifactId>common-security-starter</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
