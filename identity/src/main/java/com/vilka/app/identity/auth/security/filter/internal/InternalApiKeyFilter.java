@@ -1,16 +1,9 @@
 package com.vilka.app.identity.auth.security.filter.internal;
 
-import com.vilka.app.identity.config.InternalProperties;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+public class InternalApiKeyFilter{
 
-import java.io.IOException;
-
+}
+/*
 @Component
 @RequiredArgsConstructor
 public class InternalApiKeyFilter extends OncePerRequestFilter {
@@ -41,3 +34,4 @@ public class InternalApiKeyFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+*/
