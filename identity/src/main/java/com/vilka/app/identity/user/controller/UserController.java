@@ -1,12 +1,14 @@
 package com.vilka.app.identity.user.controller;
 
-import com.vilka.app.identity.user.dto.RoleRequest;
 import com.vilka.app.identity.user.dto.UserExistsResponse;
 import com.vilka.app.identity.user.dto.UserResponse;
 import com.vilka.app.identity.user.service.UserService;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -25,7 +27,6 @@ public class UserController {
     }*/
 
     // Get user
-    // TODO - Currently giving 403, have to later check if this is needed at all and work accordingly
     @GetMapping("/{id}")
     public UserResponse getUser(@PathVariable Long id, Authentication authentication) {
         System.out.println("🔥 CONTROLLER AUTH: " + authentication);
@@ -46,10 +47,4 @@ public class UserController {
         return userService.checkUserExists(id);
     }
 
-    @PostMapping("/api/v1/internal/users/{id}/roles")
-    public void updateRole(@PathVariable Long id,
-                           @RequestBody RoleRequest request) {
-
-        userService.updateRole(id, request.getRole());
-    }
 }

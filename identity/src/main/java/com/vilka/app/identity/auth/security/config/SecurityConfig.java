@@ -1,6 +1,5 @@
 package com.vilka.app.identity.auth.security.config;
 
-import com.vilka.app.identity.auth.security.filter.internal.InternalApiKeyFilter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -25,8 +23,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   InternalApiKeyFilter internalApiKeyFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                                                   //InternalApiKeyFilter internalApiKeyFilter) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
@@ -47,8 +45,8 @@ public class SecurityConfig {
                         oauth2.jwt(jwt -> {})
                 )
                 .httpBasic(httpBasic -> httpBasic.disable())
-                .formLogin(form -> form.disable())
-                .addFilterBefore(internalApiKeyFilter, UsernamePasswordAuthenticationFilter.class);
+                .formLogin(form -> form.disable());
+                //.addFilterBefore(internalApiKeyFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
