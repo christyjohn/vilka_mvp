@@ -1,12 +1,13 @@
 package com.vilka.app.catalog.offering.controller;
 
+import com.vilka.app.catalog.common.config.SecurityUtils;
 import com.vilka.app.catalog.offering.dto.CreateOfferingRequest;
 import com.vilka.app.catalog.offering.dto.OfferingResponse;
 import com.vilka.app.catalog.offering.service.OfferingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +25,9 @@ public class OfferingController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE_SERVICE')")
-    public OfferingResponse create(Authentication auth,
+    public OfferingResponse create(JwtAuthenticationToken auth,
                                    @RequestBody CreateOfferingRequest request) {
-        Long vendorId = (Long) auth.getPrincipal();
+        Long vendorId = SecurityUtils.getCurrentUserId();
         log.info("🔥 Offering CREATE HIT by Vendor Id: " + vendorId);
         return service.createOffering(vendorId, request);
     }

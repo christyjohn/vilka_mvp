@@ -8,6 +8,7 @@ public enum ErrorCode {
     VENDOR_NOT_FOUND("VENDOR_NOT_FOUND", HttpStatus.NOT_FOUND, "Vendor not found"),
     EMAIL_ALREADY_EXIST("EMAIL_ALREADY_EXIST", HttpStatus.CONFLICT, "Email already exists"),
     VALIDATION_ERROR("VALIDATION_ERROR", HttpStatus.BAD_REQUEST, "Validation failed"),
+    INVALID_CREDENTIALS("INVALID_CREDENTIALS", HttpStatus.UNAUTHORIZED, "Invalid credentials"),
     INTERNAL_ERROR("INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
 
     private final String code;

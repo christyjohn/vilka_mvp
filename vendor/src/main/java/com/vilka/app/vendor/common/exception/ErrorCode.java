@@ -7,6 +7,7 @@ public enum ErrorCode {
     VENDOR_NOT_FOUND("VENDOR_NOT_FOUND", HttpStatus.NOT_FOUND, "Vendor not found"),
     VENDOR_ALREADY_EXIST("VENDOR_ALREADY_EXIST", HttpStatus.CONFLICT, "Vendor already exist"),
     VALIDATION_ERROR("VALIDATION_ERROR", HttpStatus.BAD_REQUEST, "Validation failed"),
+    INVALID_CREDENTIALS("INVALID_CREDENTIALS", HttpStatus.UNAUTHORIZED, "Invalid credentials"),
     INTERNAL_ERROR("INTERNAL_ERROR", HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong");
 
     private final String code;

@@ -1,5 +1,6 @@
 package com.vilka.app.vendor.controller;
 
+import com.vilka.app.vendor.config.security.SecurityUtils;
 import com.vilka.app.vendor.dto.CreateOfferingRequest;
 import com.vilka.app.vendor.dto.OfferingResponse;
 import com.vilka.app.vendor.dto.VendorApplyRequest;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,10 +34,10 @@ public class VendorController {
     // User applies
     @PreAuthorize("hasAuthority('VENDOR_APPLY')")
     @PostMapping("/apply")
-    public void apply(Authentication auth,
+    public void apply(JwtAuthenticationToken auth,
                       @RequestBody VendorApplyRequest request) {
         log.info("🔥 Vendor APPLY HIT");
-        Long userId = (Long) auth.getPrincipal();
+        Long userId = SecurityUtils.getCurrentUserId();
         System.out.println("🔥 userId -> " + userId);
         vendorService.applyAsVendor(userId, request.getBusinessName(), request.getDescription());
     }
