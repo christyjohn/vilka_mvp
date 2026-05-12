@@ -1,6 +1,7 @@
-package com.vilka.app.catalog.offering.dto;
+package com.vilka.app.vendor.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class CreateOfferingRequest {
+
+    @NotNull(message = "Vendor id is required")
+    private Long vendorId;
 
     @NotBlank(message = "Offering name is needed")
     private String name;

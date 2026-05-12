@@ -89,7 +89,7 @@
 		</dependency>
 		<!-- Vilka Common security-->
 		<dependency>
-			<groupId>com.vilka.security</groupId>
+			<groupId>com.christyjohn.security</groupId>
 			<artifactId>common-security-starter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>

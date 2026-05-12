@@ -1,12 +1,11 @@
 package com.vilka.app.vendor.service;
 
 import com.vilka.app.vendor.client.IdentityClient;
+import com.vilka.app.vendor.client.MarketplaceClient;
 import com.vilka.app.vendor.common.exception.ApiException;
 import com.vilka.app.vendor.common.exception.ErrorCode;
 import com.vilka.app.vendor.config.security.JwtProperties;
-import com.vilka.app.vendor.dto.RoleRequest;
-import com.vilka.app.vendor.dto.VendorApplyRequest;
-import com.vilka.app.vendor.dto.VendorResponse;
+import com.vilka.app.vendor.dto.*;
 import com.vilka.app.vendor.entity.Role;
 import com.vilka.app.vendor.entity.Vendor;
 import com.vilka.app.vendor.entity.VendorStatus;
@@ -22,12 +21,17 @@ public class VendorService {
 
     private final VendorRepository vendorRepository;
     private final IdentityClient identityClient;
+    private final MarketplaceClient marketplaceClient;
     private final JwtProperties jwtProperties;
     private static final Logger log = LoggerFactory.getLogger(VendorService.class);
 
-    public VendorService(VendorRepository vendorRepository, IdentityClient userClient, JwtProperties jwtProperties) {
+    public VendorService(VendorRepository vendorRepository,
+                         IdentityClient userClient,
+                         MarketplaceClient marketplaceClient,
+                         JwtProperties jwtProperties) {
         this.vendorRepository = vendorRepository;
         this.identityClient = userClient;
+        this.marketplaceClient = marketplaceClient;
         this.jwtProperties = jwtProperties;
     }
 
@@ -47,7 +51,8 @@ public class VendorService {
         );
     }
 
-    public void apply(Long userId, String businessName, String description) {
+    // User applying as vendor
+    public void applyAsVendor(Long userId, String businessName, String description) {
 
         log.info("🔥 Calling Identity...");
         identityClient.getUser(userId);
@@ -67,6 +72,12 @@ public class VendorService {
         vendorRepository.save(vendor);
     }
 
+    // vendor creating a service
+    public OfferingResponse createOffering(CreateOfferingRequest request) {
+        return marketplaceClient.createOffering(request);
+    }
+
+    // admin approving a vendor
     public void approve(Long userId) {
 
         Vendor profile = vendorRepository.findByUserId(userId)
@@ -79,6 +90,7 @@ public class VendorService {
         identityClient.updateUserRole(userId, new RoleRequest(Role.VENDOR));
     }
 
+    // admin rejecting a vendor
     public void reject(Long userId) {
 
         Vendor vendor = vendorRepository.findByUserId(userId)

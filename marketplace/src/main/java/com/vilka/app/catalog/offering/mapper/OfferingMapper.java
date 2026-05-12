@@ -8,7 +8,6 @@ public class OfferingMapper {
 
     public static OfferingEntity toEntity(CreateOfferingRequest req) {
         OfferingEntity offering = new OfferingEntity();
-        offering.setVendorId(req.getVendorId());
         offering.setName(req.getName());
         offering.setDescription(req.getDescription());
         offering.setType(req.getType());

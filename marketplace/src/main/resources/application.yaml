@@ -12,6 +12,12 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  jwt:
+    secret: ${JWT_SECRET}
+
+services:
+  vendor:
+    url: http://localhost:8090
 
 #logging:
 #  level:
@@ -21,6 +27,3 @@ spring:
 #    com.vilka.app.catalog: INFO
 #    org.flywaydb: DEBUG
 
-services:
-  vendor:
-    url: http://localhost:8090

@@ -1,5 +1,7 @@
 package com.vilka.app.vendor.controller;
 
+import com.vilka.app.vendor.dto.CreateOfferingRequest;
+import com.vilka.app.vendor.dto.OfferingResponse;
 import com.vilka.app.vendor.dto.VendorApplyRequest;
 import com.vilka.app.vendor.dto.VendorResponse;
 import com.vilka.app.vendor.service.VendorService;
@@ -35,7 +37,15 @@ public class VendorController {
         log.info("🔥 Vendor APPLY HIT");
         Long userId = (Long) auth.getPrincipal();
         System.out.println("🔥 userId -> " + userId);
-        vendorService.apply(userId, request.getBusinessName(), request.getDescription());
+        vendorService.applyAsVendor(userId, request.getBusinessName(), request.getDescription());
+    }
+
+    @PreAuthorize("hasRole('VENDOR')")
+    @PostMapping("/offering")
+    public OfferingResponse createOffering(
+            @RequestBody CreateOfferingRequest request
+    ) {
+        return vendorService.createOffering(request);
     }
 
     // Admin approves
@@ -69,9 +79,4 @@ public class VendorController {
         return vendorService.getByUserId(userId);
     }
 
-    @PreAuthorize("hasRole('VENDOR')")
-    @PostMapping("/api/vendor/service")
-    public String createService() {
-        return "Created!";
-    }
 }

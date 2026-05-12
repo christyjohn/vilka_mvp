@@ -81,6 +81,8 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Security related dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
@@ -109,12 +111,15 @@
 			<version>0.12.5</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- JWT Token end--><!-- Vilka Common security-->
+		<!-- JWT Token end-->
+		<!-- Vilka Common security-->
 		<dependency>
-			<groupId>com.vilka.security</groupId>
+			<groupId>com.christyjohn.security</groupId>
 			<artifactId>common-security-starter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- Security related dependencies end -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
@@ -132,6 +137,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<url>http://localhost:8085/repository/my-maven-releases/</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
