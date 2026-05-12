@@ -89,9 +89,9 @@
 		</dependency>
 		<!-- Vilka Common security-->
 		<dependency>
-			<groupId>com.christyjohn.security</groupId>
+			<groupId>io.github.christyjohn</groupId>
 			<artifactId>common-security-starter</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 
 		<dependency>

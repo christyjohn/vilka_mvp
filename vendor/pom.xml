@@ -114,9 +114,9 @@
 		<!-- JWT Token end-->
 		<!-- Vilka Common security-->
 		<dependency>
-			<groupId>com.christyjohn.security</groupId>
+			<groupId>io.github.christyjohn</groupId>
 			<artifactId>common-security-starter</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<!-- Security related dependencies end -->
 
@@ -137,13 +137,6 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<repositories>
-		<repository>
-			<id>nexus</id>
-			<url>http://localhost:8085/repository/my-maven-releases/</url>
-		</repository>
-	</repositories>
 
 	<build>
 		<plugins>

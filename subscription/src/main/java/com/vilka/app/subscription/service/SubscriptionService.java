@@ -74,10 +74,10 @@ public class SubscriptionService {
     }
 
     public SubscriptionResponse cancel(Long id) {
-        log.debug("Cancelling subscription with id={}", id);
+        log.debug("🔥 Cancelling subscription with id={}", id);
         Subscription sub = repository.findById(id)
                 .orElseThrow(() -> {
-                    log.warn("Subscription not found with id={}", id);
+                    log.warn("🔥 Subscription not found with id={}", id);
                     return new ApiException(ErrorCode.NOT_SUBSCRIBED);
                 });
 

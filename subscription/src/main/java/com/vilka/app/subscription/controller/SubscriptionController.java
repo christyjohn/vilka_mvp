@@ -37,9 +37,9 @@ public class SubscriptionController {
         return service.getByUser(userId);
     }
 
-    @PutMapping("/{id}/cancel")
-    public SubscriptionResponse cancel(@PathVariable Long userId) {
-        log.info("🔥 Subscription CANCEL HIT by User Id: " + userId);
-        return service.cancel(userId);
+    @PutMapping("/{subId}/cancel")
+    public SubscriptionResponse cancel(@PathVariable Long subId) {
+        log.info("🔥 Subscription CANCEL HIT by Subscription Id: " + subId);
+        return service.cancel(subId);
     }
 }
