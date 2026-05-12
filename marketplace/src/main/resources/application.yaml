@@ -15,9 +15,6 @@ spring:
   jwt:
     secret: ${JWT_SECRET}
 
-services:
-  vendor:
-    url: http://localhost:8090
 
 #logging:
 #  level:

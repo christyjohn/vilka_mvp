@@ -1,8 +1,7 @@
 package com.vilka.app.subscription.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +9,9 @@ import java.time.LocalDateTime;
 @Table(name = "subscriptions")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Subscription {
 
     @Id
@@ -20,7 +22,7 @@ public class Subscription {
     private Long userId;
 
     @Column(name = "service_id", nullable = false)
-    private Long serviceId;
+    private Long offeringId;
 
     @Enumerated(EnumType.STRING)
     private Status status;

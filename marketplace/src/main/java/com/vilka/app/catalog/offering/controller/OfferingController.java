@@ -25,16 +25,17 @@ public class OfferingController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE_SERVICE')")
-    public OfferingResponse create(JwtAuthenticationToken auth,
-                                   @RequestBody CreateOfferingRequest request) {
+    public OfferingResponse createOffering(JwtAuthenticationToken auth,
+                                           @RequestBody CreateOfferingRequest request) {
         Long vendorId = SecurityUtils.getCurrentUserId();
         log.info("🔥 Offering CREATE HIT by Vendor Id: " + vendorId);
         return service.createOffering(vendorId, request);
     }
 
     @GetMapping("/{id}")
-    public OfferingResponse get(@PathVariable Long id) {
-        return service.get(id);
+    public OfferingResponse getOffering(@PathVariable Long id) {
+        log.info("🔥 Offering Get HIT by Offer Id: " + id);
+        return service.getById(id);
     }
 
     @GetMapping

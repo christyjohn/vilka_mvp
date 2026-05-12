@@ -8,7 +8,7 @@ public class SubscriptionMapper {
     public static Subscription toEntity(CreateSubscriptionRequest req) {
         Subscription s = new Subscription();
         s.setUserId(req.getUserId());
-        s.setServiceId(req.getServiceId());
+        s.setOfferingId(req.getOfferingId());
         return s;
     }
 
@@ -16,7 +16,7 @@ public class SubscriptionMapper {
         SubscriptionResponse res = new SubscriptionResponse();
         res.setId(s.getId());
         res.setUserId(s.getUserId());
-        res.setServiceId(s.getServiceId());
+        res.setOfferingId(s.getOfferingId());
         res.setStatus(s.getStatus().name());
         res.setStartDate(s.getStartDate());
         res.setEndDate(s.getEndDate());

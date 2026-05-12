@@ -44,7 +44,7 @@ public class OfferingService {
         return OfferingMapper.toResponse(saved);
     }
 
-    public OfferingResponse get(Long id) {
+    public OfferingResponse getById(Long id) {
 
         OfferingEntity entity = repository.findById(id)
                 .orElseThrow(() -> {

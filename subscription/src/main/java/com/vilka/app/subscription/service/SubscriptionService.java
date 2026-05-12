@@ -1,6 +1,6 @@
 package com.vilka.app.subscription.service;
 
-import com.vilka.app.subscription.client.MarketPlaceClient;
+import com.vilka.app.subscription.client.MarketplaceClient;
 import com.vilka.app.subscription.client.UserClient;
 import com.vilka.app.subscription.common.exception.ApiException;
 import com.vilka.app.subscription.common.exception.ErrorCode;
@@ -20,38 +20,38 @@ public class SubscriptionService {
 
     private final SubscriptionRepository repository;
     private final UserClient userClient;
-    private final MarketPlaceClient catalogClient;
+    private final MarketplaceClient marketplaceClient;
     private static final Logger log = LoggerFactory.getLogger(SubscriptionService.class);
 
     public SubscriptionService(SubscriptionRepository repository,
                                UserClient userClient,
-                               MarketPlaceClient catalogClient) {
+                               MarketplaceClient catalogClient) {
         this.repository = repository;
         this.userClient = userClient;
-        this.catalogClient = catalogClient;
+        this.marketplaceClient = catalogClient;
     }
 
-    public SubscriptionResponse create(CreateSubscriptionRequest request) {
+    public SubscriptionResponse subscribe(Long userID, CreateSubscriptionRequest request) {
 
-        log.info("Creating subscription with user id={}", request.getUserId());
+        log.info("🔥 Creating subscription with user id={}", request.getUserId());
         // 1. Validate user
         boolean userExists = userClient.exists(request.getUserId()).isExists();
         if (!userExists) {
-            log.warn("User creation failed: user doesn't existexists: {}", request.getUserId());
+            log.warn("🔥 User creation failed: user doesn't existexists: {}", request.getUserId());
             throw new ApiException(ErrorCode.USER_NOT_FOUND);
         }
 
         // 2. Validate service
         try {
-            catalogClient.getOffering(request.getServiceId());
+            marketplaceClient.getOffering(request.getOfferingId());
         } catch (Exception ex) {
             throw new ApiException(ErrorCode.OFFERING_NOT_FOUND);
         }
 
         // 3. Prevent duplicate subscription
-        repository.findByUserIdAndServiceId(
+        repository.findByUserIdAndOfferingId(
                 request.getUserId(),
-                request.getServiceId()
+                request.getOfferingId()
         ).ifPresent(s -> {
             throw new ApiException(ErrorCode.ALREADY_SUBSCRIBED);
         });
@@ -60,13 +60,13 @@ public class SubscriptionService {
         Subscription sub = SubscriptionMapper.toEntity(request);
         Subscription saved = repository.save(sub);
 
-        log.info("Subscrption created successfully with id={}", saved.getId());
+        log.info("🔥 Subscrption created successfully with id={}", saved.getId());
 
         return SubscriptionMapper.toResponse(saved);
     }
 
     public List<SubscriptionResponse> getByUser(Long userId) {
-        log.debug("Listing all subscriptions for user with id={}", userId);
+        log.info("Listing all subscriptions for user with id={}", userId);
         return repository.findByUserId(userId)
                 .stream()
                 .map(SubscriptionMapper::toResponse)

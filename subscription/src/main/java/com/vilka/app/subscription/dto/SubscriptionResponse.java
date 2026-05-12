@@ -1,14 +1,14 @@
 package com.vilka.app.subscription.dto;
 
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Setter
+@Data
 public class SubscriptionResponse {
     private Long id;
     private Long userId;
-    private Long serviceId;
+    private Long offeringId;
     private String status;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

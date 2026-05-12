@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class CreateSubscriptionRequest {
     private Long userId;
-    private Long serviceId;
+    private Long offeringId;
 }
